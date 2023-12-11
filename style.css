@@ -1,0 +1,25 @@
+#gameArea {
+    width: 800px;
+    height: 200px;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+.car {
+    width: 50px;
+    height: 30px;
+    position: absolute;
+    bottom: 10px;
+    background-color: red;
+}
+
+#car1 {
+    left: 10px;
+}
+
+#car2 {
+    left: 10px;
+    top: 40px;
+    background-color: blue;
+}
