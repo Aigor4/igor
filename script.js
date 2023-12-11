@@ -1,70 +1,42 @@
 document.addEventListener('keydown', moveCar);
 
 const car1 = document.getElementById('car1');
-const car2 = document.getElementById('car2');
-let car1Pos = 10;
-let car2Pos = 10;
-let car1Speed = 0;
-let car2Speed = Math.random() * 5 + 1;
-let car1Direction = 'right';
-let car2Direction = 'right';
+let car1Pos = { x: 10, y: 10 };
+let car1Speed = { x: 0, y: 0 };
 
 function moveCar(e) {
-    if (e.keyCode === 39) { // Strzałka w prawo
-        car1Speed = 5;
-    }
-    if (e.keyCode === 37) { // Strzałka w lewo
-        car1Speed = -5;
+    switch (e.keyCode) {
+        case 39: // Strzałka w prawo
+            car1Speed = { x: 5, y: 0 };
+            break;
+        case 37: // Strzałka w lewo
+            car1Speed = { x: -5, y: 0 };
+            break;
+        case 38: // Strzałka w górę
+            car1Speed = { x: 0, y: -5 };
+            break;
+        case 40: // Strzałka w dół
+            car1Speed = { x: 0, y: 5 };
+            break;
     }
 }
 
 function updateGameArea() {
-    if (car1Direction === 'right') {
-        car1Pos += car1Speed;
-    } else {
-        car1Pos -= car1Speed;
-    }
+    car1Pos.x += car1Speed.x;
+    car1Pos.y += car1Speed.y;
 
-    if (car2Direction === 'right') {
-        car2Pos += car2Speed;
-    } else {
-        car2Pos -= car2Speed;
-    }
+    car1Pos.x = Math.max(0, Math.min(car1Pos.x, 950));
+    car1Pos.y = Math.max(0, Math.min(car1Pos.y, 950));
 
-    // Zmiana kierunku na zakrętach
-    if (car1Pos > 350 && car1Direction === 'right') {
-        car1Direction = 'left';
-    } else if (car1Pos < 50 && car1Direction === 'left') {
-        car1Direction = 'right';
-    }
+    car1.style.left = car1Pos.x + 'px';
+    car1.style.top = car1Pos.y + 'px';
 
-    if (car2Pos > 350 && car2Direction === 'right') {
-        car2Direction = 'left';
-    } else if (car2Pos < 50 && car2Direction === 'left') {
-        car2Direction = 'right';
+    // Sprawdzenie, czy samochód przekroczył linię mety
+    if (car1Pos.y >= 950 && car1Pos.x >= 950) {
+        alert('Przekroczyłeś linię mety!');
     }
-
-    if (car1Pos < 0) car1Pos = 0;
-    if (car1Pos > 750 || car2Pos > 750) {
-        let winner = car1Pos > car2Pos ? 'Czerwony samochód wygrywa!' : 'Niebieski samochód wygrywa!';
-        alert(winner);
-        resetGame();
-        return;
-    }
-
-    car1.style.left = car1Pos + 'px';
-    car2.style.left = car2Pos + 'px';
 
     requestAnimationFrame(updateGameArea);
-}
-
-function resetGame() {
-    car1Pos = 10;
-    car2Pos = 10;
-    car1Speed = 0;
-    car2Speed = Math.random() * 5 + 1;
-    car1Direction = 'right';
-    car2Direction = 'right';
 }
 
 updateGameArea();

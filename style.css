@@ -1,6 +1,6 @@
 #gameArea {
-    width: 800px;
-    height: 200px;
+    width: 1000px;
+    height: 1000px;
     border: 1px solid black;
     position: relative;
     overflow: hidden;
@@ -10,16 +10,36 @@
     width: 50px;
     height: 30px;
     position: absolute;
-    bottom: 10px;
-    background-color: red;
 }
 
 #car1 {
     left: 10px;
+    top: 10px;
+    background-color: red;
 }
 
-#car2 {
+#start, #finish {
+    position: absolute;
+    color: white;
+    padding: 5px;
+    background-color: green;
+}
+
+#start {
+    top: 0;
+    left: 0;
+}
+
+#finish {
+    bottom: 0;
+    right: 0;
+}
+
+.track {
+    position: absolute;
+    border: 2px dashed gray;
+    width: 990px;
+    height: 990px;
+    top: 10px;
     left: 10px;
-    top: 40px;
-    background-color: blue;
 }
